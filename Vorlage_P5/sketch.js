@@ -54,6 +54,7 @@ function setup() {
   bp = 0;
   bd = width / 15;
   pn = 0;
+  img = loadImage("src/Christoph.png");
 
   //für den arc befehl
   angleMode(DEGREES);
@@ -64,7 +65,7 @@ function setup() {
 
 
 function draw() {
-  //  picture();
+  image(img,0,0,width,height)
   backgr();
   ball();
   fullPadel(px, py);
