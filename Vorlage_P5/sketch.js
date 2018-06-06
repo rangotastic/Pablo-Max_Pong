@@ -54,7 +54,7 @@ function setup() {
   bp = 0;
   bd = width / 15;
   pn = 0;
-  img = loadImage("src/Christoph.png");
+  img = loadImage("src/Christoph");
 
   //für den arc befehl
   angleMode(DEGREES);
