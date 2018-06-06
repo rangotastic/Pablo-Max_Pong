@@ -35,6 +35,8 @@ let gx;
 let gy;
 let gv;
 
+let img;
+
 
 
 
@@ -54,7 +56,7 @@ function setup() {
   bp = 0;
   bd = width / 15;
   pn = 0;
-  img = loadImage("src/Christoph");
+  img = loadImage("src/Christoph.png");
 
   //für den arc befehl
   angleMode(DEGREES);
@@ -65,7 +67,9 @@ function setup() {
 
 
 function draw() {
+  background(255);
   image(img,0,0,width,height)
+  //picture();
   backgr();
   ball();
   fullPadel(px, py);
@@ -100,7 +104,7 @@ function draw() {
 }
 
 function backgr() { //.............................................
-  background(255);
+//  background(255);
   fill(200);
   noStroke();
   gv = (rotationY) / (width / 180);
@@ -200,14 +204,14 @@ function punkte() {
 
 
 function picture() {
-  noLoop();
-  for (let i = 0; i < 100; i++) {
+
+
     // code by christoph schubert
     // 10 Print Variante C
     // Christoph Schubert
     let step = 20; // Rastergröße
-    let x = 0; // aktueller X Wert
-    let y = 0; // aktueller Y Wert
+    let xC = 0; // aktueller X Wert
+    let yC = 0; // aktueller Y Wert
 
     let limitSky = 240;
     let limitMountains1 = 260;
@@ -230,50 +234,48 @@ function picture() {
     // erzeugt eine zufällige Zahl zwischen 0 und 3
     let rand = random(0, 1);
 
-    if (y <= limitSky) {
-      fill(hueSky, 150, 80 + y / 2);
-      rect(x, y, step, step);
-    } else if (y <= limitMountains1) {
+    if (yC <= limitSky) {
+      fill(hueSky, 150, 80 + yC / 2);
+      rect(xC, yC, step, step);
+    } else if (yC <= limitMountains1) {
 
       fill(hueMountains, 80, 100);
-      triangle(x, y, x + 20 + rand * 20, y - 15 - 15 * rand, x + 40 + rand * 20, y);
-      rect(x, y, step, step);
+      triangle(xC, yC, xC + 20 + rand * 20, yC - 15 - 15 * rand, xC + 40 + rand * 20, yC);
+      rect(xC, yC, step, step);
 
-    } else if (y <= limitMountains2) {
+    } else if (yC <= limitMountains2) {
       fill(hueMountains, 80, 100);
-      rect(x, y, step, step);
-    } else if (y <= limitClouds) {
-      fill(y - limitMountains2 / 2 - 50);
-      ellipse(x + step / 2, y + step / 2, 20 + 80 * rand);
-    } else if (y <= limitForest) {
-      stroke(hueForest, 100, 200 - (y - limitClouds));
+      rect(xC, yC, step, step);
+    } else if (yC <= limitClouds) {
+      fill(yC - limitMountains2 / 2 - 50);
+      ellipse(xC + step / 2, y + step / 2, 20 + 80 * rand);
+    } else if (yC <= limitForest) {
+      stroke(hueForest, 100, 200 - (yC - limitClouds));
       strokeWeight(3);
-      fill(hueForest, 100, 200 - (y - limitClouds));
-      drawTree(x, y, 20 + 20 * rand);
-      rect(x, y, step, step);
+      fill(hueForest, 100, 200 - (yC - limitClouds));
+      drawTree(xC, yC, 20 + 20 * rand);
+      rect(xC, yC, step, step);
 
-      let cloudBrightness = y - limitMountains2 / 2 - 50;
+      let cloudBrightness = yC - limitMountains2 / 2 - 50;
       noStroke();
       fill(0, 0, cloudBrightness, 30);
-      ellipse(x + step / 2, y + step / 2, 80 + 80 * rand);
+      ellipse(xC + step / 2, yC + step / 2, 80 + 80 * rand);
     }
 
     // nächster Punkt auf der X-Achse im Raster
-    x = x + step;
+    xC = xC + step;
 
     // wenn x am Ende der Zeile/X-Achse der Zeichenfläche ankommt
-    if (x >= width) {
-      x = 0; // x wieder ganz nach links setzten
-      y = y + step; // Zeilenumbruch
+    if (xC >= width) {
+      xC = 0; // x wieder ganz nach links setzten
+      yC = yC + step; // Zeilenumbruch
 
       print("Zeilenumbruch!!!");
     }
 
     // sobald y am unteren Ende der Zeichenfläche angekommen ist
-    if (y > height + 60) {
+    if (yC > height + 60) {
       saveCanvas("10printC-" + year() + month() + day() + "-" + hour() + minute() + second());
-      x = 0;
-      y = 0;
       noStroke();
       background(52);
       print("RESET!");
@@ -281,11 +283,10 @@ function picture() {
 
 
 
-    function drawTree(x, y, height, scale) {
+    function drawTree(xC, yC, height, scale) {
       let rand = random(0, 1);
-      line(x, y, x, y - (height + height * rand));
-      ellipse(x, y - (height + height * rand), 40 + 10 * rand, 20 + 10 * rand);
+      line(xC, yC, xC, yC - (height + height * rand));
+      ellipse(xC, yC - (height + height * rand), 40 + 10 * rand, 20 + 10 * rand);
     }
     colorMode(RGB, 255);
   }
-}
